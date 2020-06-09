@@ -4,8 +4,17 @@ const app = express();
 const server = http.createServer(app);
 const socket = require("socket.io");
 const io = socket(server);
-
+const port = 8080;
 const users = {};
+
+app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('/ping', function (req, res) {
+ return res.send('pong');
+});
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 io.on('connection', socket => {
     if (!users[socket.id]) {
@@ -26,6 +35,6 @@ io.on('connection', socket => {
     })
 });
 
-server.listen(8000, () => console.log('server is running on port 8000'));
+server.listen(port, () => console.log('server is running on port 8000'));
 
 
