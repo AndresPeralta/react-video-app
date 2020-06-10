@@ -4,7 +4,7 @@ const app = express();
 const server = http.createServer(app);
 const socket = require("socket.io");
 const io = socket(server);
-const port = 5000;
+
 const users = {};
 
 io.on('connection', socket => {
@@ -26,6 +26,6 @@ io.on('connection', socket => {
     })
 });
 
-server.listen(port, () => console.log('server is running on port 8000'));
+server.listen(8000, () => console.log('server is running on port 8000'));
 
 
